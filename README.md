@@ -20,7 +20,7 @@ Practice problems and solutions for verilog
 	1. `Y=A+B`
 	2. `Y=A+1`
 	3. `Y=max(A, B)`
-
+6. Design and implement a single-port RTL RAM module with parameterised address with, data width and depth.
 
 ## References
 
