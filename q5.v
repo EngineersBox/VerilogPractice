@@ -36,29 +36,46 @@ module max #(parameter BIT_WIDTH = 32)(var_a, var_b, higher);
 
 endmodule
 
+module Mux_3x1#(parameter BIT_WIDTH = 32)(sel, in_0, in_1, in_2, out);
+    input [1:0] sel;
+    input [BIT_WIDTH - 1 : 0] in_0;
+    input [BIT_WIDTH - 1 : 0] in_1;
+	input [BIT_WIDTH - 1 : 0] in_2;
+    output reg [BIT_WIDTH - 1 : 0] out;
+
+    always @ (*) begin
+        case (sel)
+            2'b00: out = in_0;
+            2'b01: out = in_1;
+			2'b10: out = in_2;
+            default:
+                out = 'h0;
+        endcase
+    end
+endmodule
+
+
 module alu #(parameter BIT_WIDTH = 32)(select, a, b, y);
 	input [1:0] select; // 0 = add, 1 = increment, 2 = max
 	input [BIT_WIDTH - 1 : 0] a;
 	input [BIT_WIDTH - 1 : 0] b;
 	output reg [BIT_WIDTH - 1 : 0] y;
 
-	reg [BIT_WIDTH - 1 : 0] var_b_conn;
+	wire [BIT_WIDTH - 1 : 0] var_b_conn;
 	wire [BIT_WIDTH - 1 : 0] adder_output_conn;
 	wire [BIT_WIDTH - 1 : 0] max_output_conn;
-	
+
+	Mux_3x1 aluop(select, b, 1, b, var_b_conn);
 	n_adder #(.BIT_WIDTH(BIT_WIDTH)) mod_adder(.var_a(a), .var_b(var_b_conn), .sum(adder_output_conn));
 	max #(.BIT_WIDTH(BIT_WIDTH)) mod_max(.var_a(a), .var_b(b), .higher(max_output_conn));
 
-	always @(select or a or b) begin
-		if (select == 2'b00) begin
-			var_b_conn <= b;
-			y <= adder_output_conn;
-		end else if (select == 2'b01) begin
-			var_b_conn <= 1;
-			y <= adder_output_conn;
-		end else if (select == 2'b10) begin
-			y <= max_output_conn;
-		end
+	always @(*) begin
+		case (select)
+			2'b00: y = adder_output_conn;
+			2'b01: y = adder_output_conn;
+			2'b10: y = max_output_conn;
+			default: y = 0;
+		endcase
 	end
 
 endmodule
