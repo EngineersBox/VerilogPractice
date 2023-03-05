@@ -36,7 +36,7 @@ module max #(parameter BIT_WIDTH = 32)(var_a, var_b, higher);
 
 endmodule
 
-module Mux_3x1#(parameter BIT_WIDTH = 32)(sel, in_0, in_1, in_2, out);
+module Mux_3x1 #(parameter BIT_WIDTH = 32)(sel, in_0, in_1, in_2, out);
     input [1:0] sel;
     input [BIT_WIDTH - 1 : 0] in_0;
     input [BIT_WIDTH - 1 : 0] in_1;
