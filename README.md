@@ -16,6 +16,11 @@ Practice problems and solutions for verilog
 | 0     | 0     | 1     | 1     |
 | 0     | 0     | 1     | 1     |
 4. Implement a flip-flop with an active-low async reset
+5. Implement an ALU with 3 operations on select:
+	1. `Y=A+B`
+	2. `Y=A+1`
+	3. `Y=max(A, B)`
+
 
 ## References
 
