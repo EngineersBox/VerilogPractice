@@ -21,6 +21,7 @@ Practice problems and solutions for verilog
 	2. `Y=A+1`
 	3. `Y=max(A, B)`
 6. Design and implement a single-port RTL RAM module with parameterised address with, data width and depth.
+7. Provide a module for an N-bit shift register
 
 ## References
 
